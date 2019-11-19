@@ -15,6 +15,7 @@
           <td>{{value.name}}</td>
           <td v-if="!value.birth">Nepoznato</td>
           <td v-else>{{value.birth.getFullYear()}}</td>
+          <button @click="remove(index)">Remove</button>
         </tr>
       </tbody>
     </table>
@@ -35,6 +36,12 @@ export default {
         {species: 'bird', name: 'Cleopatra', birth: new Date()}
       ]
     };
+  }, 
+
+  methods: {
+      remove (index) {
+    this.$delete(this.animals, index)
+    }
   }
 }
 </script>
