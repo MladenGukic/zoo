@@ -11,6 +11,7 @@
       </thead>
       <tbody>
         <tr v-bind:key="index" v-for="(value, index) in animals">
+          <button @click="move(index)">Move to top </button>
           <td>{{value.species}}</td>
           <td>{{value.name}}</td>
           <td v-if="!value.birth">Nepoznato</td>
@@ -39,9 +40,15 @@ export default {
   }, 
 
   methods: {
-      remove (index) {
+      remove(index) {
     this.$delete(this.animals, index)
-    }
+    },
+
+      move(index) {
+        let animal = this.animals[index]
+        this.remove(index)
+        this.animals.unshift(animal)
+      }
   }
 }
 </script>
