@@ -1,5 +1,11 @@
 <template>
 <div>
+    <form @submit.prevent="addAnimal" class="form-class">
+      <input placeholder="Specie" id="species" type="text" name="species" v-model="form.species"/>
+      <input placeholder="Name" id="name" type="text" name="name" v-model="form.name" />
+      <input placeholder="Birth" id="birth" type="hiden" name="birth" v-model="form.birth"/>
+      <button type="submit"> Add Animal </button>
+    </form>
   <div>
     <table>
       <thead>
@@ -15,6 +21,7 @@
           <td>{{value.species}}</td>
           <td>{{value.name}}</td>
           <td v-if="!value.birth">Nepoznato</td>
+          <td v-else-if="!value.birth.getFullYear">{{value.birth}}</td>
           <td v-else>{{value.birth.getFullYear()}}</td>
           <button @click="remove(index)">Remove</button>
         </tr>
@@ -30,12 +37,14 @@ export default {
   data() {
     return {
       animals: [
-        {species: 'mamml', name: 'King', birth: new Date()},
-        {species: 'bird', name: 'Ko-ko', birth: new Date()},
-        {species: 'mamml', name: 'Cleopatra', birth: new Date()},
-        {species: 'fish', name: 'Joe'},
-        {species: 'bird', name: 'Cleopatra', birth: new Date()}
-      ]
+        {species: 'mamml', name: 'Dog', birth: new Date()},
+        {species: 'bird', name: 'Parrot', birth: new Date()},
+        {species: 'mamml', name: 'Cat', birth: new Date()},
+        {species: 'fish', name: 'Tuna'},
+        {species: 'bird', name: 'Pidgeon', birth: new Date()}
+      ],
+
+      form: {species: '', name: '', birth: ''}
     };
   }, 
 
@@ -48,6 +57,10 @@ export default {
         let animal = this.animals[index]
         this.remove(index)
         this.animals.unshift(animal)
+      },
+
+      addAnimal() {
+        this.animals.push(this.form)
       }
   }
 }
