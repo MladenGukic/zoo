@@ -36,6 +36,23 @@
         </tr>
       </tbody>
     </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sectors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-bind:key="index" v-for="(sector, index) in sectors">
+          <td>{{sector}}</td>
+          <td>
+            <button @click="viewAnimals(index)">View animal list</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </div>
 </template>
@@ -73,6 +90,13 @@ export default {
 
       addAnimal() {
         this.animals.push(this.form)
+      },
+
+      viewAnimals(index) {
+        let listAnimals = this.animals.filter(animal =>
+          animal.selectedSector == this.sectors[index]).map(animal => animal.species + " " + animal.name)
+
+          alert(listAnimals)
       }
   }
 }
